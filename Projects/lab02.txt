@@ -1,0 +1,401 @@
+//lab02-task1
+
+dynarr.cpp
+
+#include"dynarr.h"
+#include<iostream>
+using namespace std;
+
+dynarr::dynarr()
+{
+    data =NULL;
+    size = 0;
+}
+dynarr::dynarr(int s)
+{
+    data = new int[s];
+    size = s;
+}
+dynarr::~dynarr()
+{
+    delete []data;
+}
+void dynarr::setValue(int index,int value)
+{
+    data[index] = value;
+}
+int dynarr::getValue(int index)
+{
+    return data[index];
+}
+
+
+main.cpp
+
+#include <iostream>
+#include"dynarr.h"
+using namespace std;
+
+int main()
+{
+
+    dynarr object1();
+    dynarr object2(5);
+    int value;
+    cout<< "Enter five integers : ";
+    for(int i=0;i<5;i++)
+    {
+        cin>>value;
+        object2.setValue(i,value);
+    }
+    cout<< "Array contains : ";
+    for(int i=0;i<5;i++)
+    {
+        cout<<object2.getValue(i)<<" ";
+    }
+    cout<<endl<<endl;
+
+    return 0;
+}
+
+dynarr.h
+
+#ifndef DYNAMICARRAY2_H_INCLUDED
+#define DYNAMICARRAY2_H_INCLUDED
+//2D array
+class DYNAMICARRAY2{
+private:
+    int **data;
+    int*new_data;
+    int size,size1,size2;
+public:
+    DYNAMICARRAY2();
+    DYNAMICARRAY2(int,int);
+    ~DYNAMICARRAY2();
+    void setValue(int,int,int);
+    int getValue (int,int);
+    void allocate (int,int);
+
+};
+
+#endif // DYNAMICARRAY2_H_INCLUDED
+
+
+
+
+
+
+//lab02-task2
+
+
+dynarr.cpp
+
+#include"dynarr.h"
+#include<iostream>
+using namespace std;
+
+dynarr::dynarr()
+{
+    data =NULL;
+    size = 0;
+}
+dynarr::dynarr(int s)
+{
+    data = new int[s];
+    size = s;
+}
+dynarr::~dynarr()
+{
+    delete []data;
+}
+void dynarr::setValue(int index,int value)
+{
+    data[index] = value;
+}
+int dynarr::getValue(int index)
+{
+    return data[index];
+}
+void dynarr::allocate(int s)
+{
+    int *temparray = new int[s];
+    for (int i = 0; i < size ; i++)
+    {
+        temparray[i] = data[i];
+    }
+    delete[] data;
+    data = temparray;
+
+    cout << "\nEnter another "<<s-size<<" integers : ";
+    for (int i = size; i < s; i++)
+    {
+        int num;
+        cin>> num;
+        data[i] = num;
+    }
+    size = s;
+}
+
+
+main.cpp
+
+#include <iostream>
+#include"dynarr.h"
+using namespace std;
+
+int main()
+{
+
+    dynarr object1();
+    dynarr object2(5);
+    int value;
+    cout<< "Enter five integers : ";
+    for(int i=0;i<5;i++)
+    {
+        cin>>value;
+        object2.setValue(i,value);
+    }
+    cout<< "Array contains : ";
+    for(int i=0;i<5;i++)
+    {
+        cout<<object2.getValue(i)<<" ";
+    }
+    cout<<endl<<endl;
+
+
+     cout << "Enter the new array size: ";
+    int s;
+    cin >> s;
+    object2.allocate(s);
+    cout << "\nArray with new size : ";
+    for (int i = 0; i < s; i++)
+        {
+            cout << object2.getValue(i)<< " ";
+        }
+        cout<<endl;
+    return 0;
+}
+
+
+dynarr.h
+
+#ifndef DYNARR_H_INCLUDED
+#define DYNARR_H_INCLUDED
+
+class dynarr{
+private:
+    int *data;
+    int size;
+public:
+    dynarr();
+    dynarr(int);
+    ~dynarr();
+    void setValue(int , int);
+    int getValue(int);
+    void allocate(int);
+};
+
+#endif
+
+
+
+
+
+
+
+
+//lab02-task3
+
+
+dynarr.cpp
+
+#include "dynarr.h"
+#include <iostream>
+using namespace std;
+dynarr::dynarr()
+{
+    data = NULL;
+
+}
+
+dynarr::dynarr(int row, int column)
+{
+    int r = row;
+    int c = column;
+    data = new int *[r];
+    for (int i = 0; i < r; i++)
+        data[i] = new int[c];
+}
+
+dynarr::~dynarr()
+{
+    int r;
+    for (int i = 0; i < r; i++)
+    {
+        delete[] data[i];
+    }
+    delete[] data;
+}
+
+int dynarr::getValue(int row, int col)
+{
+    return data[row][col];
+}
+void dynarr::setValue(int row, int col, int value)
+{
+    data[row][col] = value;
+}
+
+
+main.cpp
+
+#ifndef DYNARR_H_INCLUDED
+#define DYNARR_H_INCLUDED
+template<class T>
+class dynarr
+{
+private:
+   T* data;
+   int size;
+public:
+   dynarr();
+   dynarr(int);
+   ~dynarr();
+   void setValue(int, T);
+   T getValue(int);
+};
+#endif DYNARR_H_INCLUDED
+
+
+dynarr.h
+
+#ifndef DYNARR_H_INCLUDED
+#define DYNARR_H_INCLUDED
+
+
+class dynarr{
+private:
+    int **data;
+    int row,col;
+public:
+    dynarr();
+    dynarr(int,int);
+    ~dynarr();
+    void setValue(int , int, int);
+    int getValue(int,int);
+
+};
+
+
+#endif // DYNARR_H_INCLUDED
+
+
+
+
+
+//lab02-task4
+
+
+dynarr.cpp
+
+#include"dynarr.h"
+#include<iostream>
+using namespace std;
+
+template<class T>
+dynarr<T>::dynarr()
+{
+   data = NULL;
+   size = 0;
+}
+template<class T>
+dynarr<T>::dynarr(int s)
+{
+   data = new T[s];
+   size = s;
+}
+template<class T>
+dynarr<T>::~dynarr()
+{
+   delete[]data;
+}
+template<class T>
+void dynarr<T>::setValue(int index, T value)
+{
+
+       data[index] = value;
+}
+template<class T>
+T dynarr<T>::getValue(int index)
+{
+       return data[index];
+
+}
+
+
+main.cpp
+
+#include <iostream>
+#include"dynarr.cpp"
+using namespace std;
+
+int main()
+{
+    int n;
+    dynarr<int> o1(5);
+
+    cout << "Enter five number : \n";
+    for ( int i=0;i<5; i++)
+    {
+        cin>>n;
+        o1.setValue(i,n);
+    }
+    cout<< "\nInteger array : \n";
+    for (int i=0;i<5; i++)
+    {
+        cout<<o1.getValue(i)<<" ";
+    }
+    cout<<endl;
+
+    char c;
+    dynarr<char> o2(5);
+    cout << "\nInput five character : \n";
+
+    for (int i=0;i<5; i++)
+    {
+        cin>>c;
+        o2.setValue(i,c);
+    }
+     cout<< "\nCharacter Array : ";
+    for (int i=0;i<5; i++)
+    {
+        cout<<o2.getValue(i)<<" ";
+    }
+
+
+    return 0;
+}
+
+
+dynarr.h
+
+#ifndef DYNARR_H_INCLUDED
+#define DYNARR_H_INCLUDED
+template<class T>
+class dynarr
+{
+private:
+   T* data;
+   int size;
+public:
+   dynarr();
+   dynarr(int);
+   ~dynarr();
+   void setValue(int, T);
+   T getValue(int);
+};
+#endif
+
+
+
+

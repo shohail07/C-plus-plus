@@ -1,0 +1,353 @@
+sortedtype.h 
+
+
+#ifndef SORTEDTYPE_H_INCLUDED
+#define SORTEDTYPE_H_INCLUDED
+const int max_items = 5;
+template <class T>
+class SortedType
+{
+public:
+    SortedType();
+    void makeEmpty();
+    bool isEmpty();
+    bool isFull();
+    int lengthIs();
+    void insertItem(T);
+    void deleteItem(T);
+    void resetList();
+    void getNextItem(T&);
+    void retriveItem(T&, bool&);
+private:
+    int length;
+    int currentPos;
+    T info[max_items];
+};
+#endif // SORTEDTYPE_H_INCLUDED
+
+
+
+
+timeStamp.h
+
+
+#ifndef SORTEDTYPE_H_INCLUDED
+#define SORTEDTYPE_H_INCLUDED
+
+class timeStamp
+    [
+        private :
+        int ss;
+        int mm;
+        int hh;
+
+        public :
+        timeStamp();
+        void set(int, int, int );
+        bool operator<(const timeStamp& );
+        bool operator>(const timeStamp& );
+        bool operator!=(const timeStamp& ):
+        void print();
+
+        void printList(SortedType<int> list)
+    ]
+
+
+
+
+sortedtype.cpp
+
+#include "sortedtype.h"
+
+template <class T>
+SortedType<T>::SortedType()
+{
+    length = 0;
+    currentPos = -1;
+}
+
+template <class T>
+void SortedType<T>::makeEmpty()
+{
+    length = 0;
+}
+
+template <class T>
+bool SortedType<T>::isEmpty()
+{
+    return (length == 0);
+}
+
+template <class T>
+bool SortedType<T>::isFull()
+{
+    return (length == max_items);
+}
+
+template <class T>
+int SortedType<T>::lengthIs()
+{
+    return length;
+}
+
+template <class T>
+void SortedType<T>::insertItem(T item)
+{
+    int location = 0;
+    bool moreToSearch = (location < length);
+
+    while (moreToSearch)
+    {
+        if (item > info[location])
+        {
+            location++;
+            moreToSearch = (location < length);
+        }
+        else if (item < info[location])
+        {
+            moreToSearch = false;
+        }
+    }
+    for (int index = length; index > location; index--)
+        info[index] = info[index - 1];
+
+    info[location] = item;
+    length++;
+}
+
+template <class T>
+void SortedType<T>::deleteItem(T item)
+{
+    int location = 0;
+    while (item != info[location])
+        location++;
+
+    for (int index = location + 1; index < length; index++)
+        info[index - 1] = info[index];
+
+    length--;
+}
+
+template <class T>
+void SortedType<T>::resetList()
+{
+    currentPos = -1;
+}
+
+template <class T>
+void SortedType<T>::getNextItem(T &item)
+{
+    currentPos++;
+    item = info[currentPos];
+}
+
+
+
+template <class T>
+void SortedType<T>::retriveItem(T &item, bool &found)
+{
+    int midPoint, first = 0, last = length - 1;
+    bool moreToSearch = (first <= last);
+    found = false;
+
+    while (moreToSearch && !found)
+    {
+        midPoint = (first+last)/2;
+        if(item < info[midPoint]){
+            last = midPoint-1;
+            moreToSearch = (first <= last);
+        }else if(item < info[midPoint]){
+            first = midPoint+1;
+            moreToSearch = (first <= last);
+        }else{
+            found = true;
+            item = info[midPoint];
+        }
+    }
+}
+
+
+main.cpp
+
+#include <iostream>
+#include "sortedtype.cpp"
+
+using namespace std;
+
+class timeStamp
+{
+private:
+    int ss;
+    int mm;
+    int hh;
+
+public:
+
+    timeStamp()
+    {
+        this->hh = 0;
+        this->mm = 0;
+        this->ss = 0;
+    }
+
+    void set(int ss, int mm, int hh)
+    {
+        this->hh = hh;
+        this->mm = mm;
+        this->ss = ss;
+    }
+
+    bool operator<(const timeStamp &rh)
+    {
+        if (this->hh < rh.hh)
+            return true;
+        if (this->mm < rh.mm)
+            return true;
+        if (this->ss < rh.ss)
+            return true;
+
+        return false;
+    }
+
+    bool operator>(const timeStamp &rh)
+    {
+        if (this->hh > rh.hh)
+            return true;
+        if (this->mm > rh.mm)
+            return true;
+        if (this->ss > rh.ss)
+            return true;
+
+        return false;
+    }
+
+    bool operator!=(const timeStamp &rh)
+    {
+        if (this->hh != rh.hh || this->mm != rh.mm || this->ss != rh.ss)
+            return true;
+        return false;
+    }
+
+    void print()
+    {
+        cout << ss << ":" << mm << ":" << hh << endl;
+    }
+};
+
+void printList(SortedType<int> list)
+{
+    list.resetList();
+    for (int i = 0; i < list.lengthIs(); i++)
+    {
+        int item = 0;
+        list.getNextItem(item);
+        cout << item << "  ";
+    }
+    cout << endl;
+}
+
+int main()
+{
+
+    SortedType<int> list;
+
+
+    if (list.isEmpty())
+    {
+        cout << "List is Empty" << endl;
+    }
+    else
+        cout << "List isn't Empty" << endl;
+
+
+
+
+    list.insertItem(5);
+    list.insertItem(4);
+    list.insertItem(3);
+    list.insertItem(1);
+    list.insertItem(2);
+
+
+    printList(list);
+
+
+    if (list.isFull())
+    {
+        cout << "List is full"<<endl;
+    }
+    else
+    {
+        cout << "List is not full" <<endl;
+    }
+
+
+    list.deleteItem(3);
+
+    cout << endl;
+     printList(list);
+      cout << endl;
+
+       if (list.isFull())
+    {
+        cout << "List is full"<<endl;
+    }
+    else
+    {
+        cout << "List is not full" <<endl;
+    }
+     cout << endl;
+
+    SortedType<timeStamp> list2;
+    timeStamp t1;
+    t1.set(15, 34, 23);
+    list2.insertItem(t1);
+
+    timeStamp t2;
+    t2.set(45, 12, 12);
+    list2.insertItem(t2);
+
+    timeStamp t3;
+    t3.set(35, 12, 6);
+    list2.insertItem(t3);
+
+    timeStamp t4;
+    t4.set(12, 40, 18);
+    list2.insertItem(t4);
+
+    timeStamp t5;
+    t5.set(12, 12, 12);
+    list2.insertItem(t5);
+
+
+for (int i = 0; i <= list.lengthIs(); i++)
+    {
+        timeStamp item;
+        list2.getNextItem(item);
+        item.print();
+    }
+
+
+    list2.deleteItem(t5);
+    cout << endl;
+
+    for (int i = 0; i <= list.lengthIs(); i++)
+    {
+        timeStamp item;
+        list2.getNextItem(item);
+        item.print();
+    }
+
+
+    cout << endl;
+
+    if (list2.isFull())
+    {
+        cout << "List is full"<<endl;
+    }
+    else
+    {
+        cout << "List is not full" <<endl;
+    }
+    return 0;
+}

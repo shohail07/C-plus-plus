@@ -1,0 +1,317 @@
+main.cpp
+
+#include "Student.cpp"
+#include "UnsortedType.cpp"
+
+int main()
+{
+    int nmbr,allexm;
+
+    cout<<"Number of students in CSE225 ? ";
+    cin>>nmbr;
+    cout<<"\nNumber of exams? ";
+    cin>>allexm;
+    cout<<endl;
+
+    Student students[nmbr];
+
+    for(int i=0; i<nmbr; i++)
+    {
+
+        int id;
+        string name;
+        float cgpa;
+        UnsortedType<int> marks;
+        int exm;
+
+        cout<<"\nStudent ID: ";
+        cin>>id;
+
+        cout<<"Student Name: ";
+        cin>>name;
+
+        cout<<"Student CGPA: ";
+        cin>>cgpa;
+
+        cout<<"Number of Exams attended: ";
+        cin>>exm;
+
+        for(int j=0; j<exm; j++)
+        {
+
+            int values;
+            cout<<"\tExam "<<(j+1)<<": ";
+            cin>>values;
+            marks.InsertItem(values);
+
+        }
+
+        students[i] = Student(id,name,cgpa,marks);
+
+
+    }
+
+    for (int i=0; i<nmbr; i++)
+    {
+        for (int j=i+1; j<nmbr; j++)
+        {
+
+            if (students[i].getId() > students[j].getId())
+            {
+                Student tmp = students[i];
+                students[i] = students[j];
+                students[j] = tmp;
+            }
+
+        }
+    }
+
+
+
+    for (int i=0; i<nmbr; i++)
+    {
+
+        cout<<"ID: "<<students[i].getId()<<" ; Name: "<<students[i].getName()<<" ; CGPA: "<<students[i].getCgpa()<<" ; Exams: ";
+
+        UnsortedType<int> ob;
+        ob=students[i].getMarks();
+        for (int j=0; j<students[i].getMarks().LengthIs(); j++)
+        {
+
+            int val;
+            ob.GetNextItem(val);
+            cout << val << " ";
+        }
+        ob.ResetList();
+
+
+        int temp[students[i].getMarks().LengthIs()];
+        double average = 0;
+
+
+        ob=students[i].getMarks();
+        for (int j=0; j<students[i].getMarks().LengthIs(); j++)
+        {
+            int val;
+            ob.GetNextItem(val);
+            temp[j] =val;
+        }
+
+
+        for (int k=0; k<students[i].getMarks().LengthIs(); k++)
+        {
+            for (int j=k+1; j<students[i].getMarks().LengthIs(); j++)
+            {
+
+                if (temp[k] < temp[j])
+                {
+                    int a = temp[k];
+                    temp[k] = temp[j];
+                    temp[j] = a;
+                }
+
+            }
+        }
+
+
+        for (int j=0; j<allexm-2; j++)
+        {
+            average += temp[j];
+        }
+
+        average /= (allexm-2);
+
+        printf(";Average mark: %.2f", average);
+        cout<<endl;
+
+    }
+
+}
+
+
+
+Student.h
+
+
+#include<iostream>
+#include "UnsortedType.h"
+using namespace std;
+
+class Student
+{
+
+private:
+    int id;
+    string name;
+    float cgpa;
+    UnsortedType<int> marks;
+
+public:
+    Student();
+    Student(int id2, string name2,float cgpa2,UnsortedType<int> marks2);
+    int getId();
+    string getName();
+    float getCgpa();
+    UnsortedType<int> getMarks();
+
+};
+
+
+Student.cpp
+
+#include "Student.h"
+
+Student::Student()
+{
+};
+
+Student::Student(int ids, string names,float cgpas, UnsortedType<int> mark)
+{
+
+
+    id = ids;
+    name = names;
+    cgpa = cgpas;
+
+    for (int i=0; i<mark.LengthIs(); i++)
+    {
+        int val;
+        mark.GetNextItem(val);
+        marks.InsertItem(val);
+    }
+    mark.ResetList();
+
+};
+
+int Student::getId()
+{
+    return id;
+}
+
+string Student::getName()
+{
+    return name;
+}
+
+float Student::getCgpa()
+{
+    return cgpa;
+}
+
+UnsortedType<int> Student::getMarks()
+{
+    return marks;
+}
+
+UnsortedType.cpp
+
+
+#include "UnsortedType.h"
+
+template <class ItemType>
+UnsortedType<ItemType>::UnsortedType()
+{
+    Length=0;
+    currentPos=-1;
+}
+template <class ItemType>
+void UnsortedType<ItemType>::MakeEmpty()
+{
+    Length=0;
+}
+template <class ItemType>
+bool UnsortedType<ItemType>::IsFull()
+{
+    return (Length==MAX_ITEMS);
+}
+template<class ItemType>
+bool UnsortedType<ItemType>::isEmpty()
+{
+    return (Length==0);
+}
+
+template <class ItemType>
+int UnsortedType<ItemType>::LengthIs()
+{
+    return Length;
+}
+template <class ItemType>
+void UnsortedType<ItemType>::InsertItem(ItemType item)
+{
+    info[Length]=item;
+    Length++;
+}
+template <class ItemType>
+void UnsortedType<ItemType>::DeleteItem(ItemType item)
+{
+    int location=0;
+    while(item!=info[location])
+        location++;
+    info[location]=info[Length-1];
+    Length--;
+}
+template <class ItemType>
+void UnsortedType<ItemType>::RetriveItem(ItemType& item, bool &found)
+{
+    int location = 0;
+    bool moreToSearch = (location < Length);
+    found = false;
+    while (moreToSearch && !found)
+    {
+        if(item == info[location])
+        {
+            found = true;
+            item = info[location];
+        }
+        else
+        {
+            location++;
+            moreToSearch = (location < Length);
+        }
+    }
+}
+template <class ItemType>
+void UnsortedType<ItemType>::ResetList()
+{
+    currentPos=-1;
+}
+template <class ItemType>
+void UnsortedType<ItemType>::GetNextItem(ItemType& item)
+{
+    currentPos++;
+    item = info [currentPos] ;
+}
+
+UnsortedType.h
+
+
+#ifndef UNSORTEDTYPE_H_INCLUDED
+#define UNSORTEDTYPE_H_INCLUDED
+
+using namespace std;
+const int MAX_ITEMS=5;
+class StudentInfo
+{
+
+};
+template <class ItemType>
+class UnsortedType
+{
+private:
+    ItemType info[MAX_ITEMS];
+    int Length;
+    int currentPos;
+public:
+    UnsortedType();
+    void MakeEmpty();
+    bool isEmpty();
+    bool IsFull();
+    int LengthIs();
+    void InsertItem(ItemType);
+    void DeleteItem(ItemType);
+    void RetriveItem(ItemType&, bool&);
+    void ResetList();
+    void GetNextItem(ItemType&);
+};
+
+#endif

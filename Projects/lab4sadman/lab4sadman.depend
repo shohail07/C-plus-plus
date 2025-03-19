@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1625941327 source:c:\users\little finger\desktop\c++\projects\lab4sadman\unsortedtype.cpp
+	"UnsortedType.h"
+
+1625939526 c:\users\little finger\desktop\c++\projects\lab4sadman\unsortedtype.h
+
+1625939956 source:c:\users\little finger\desktop\c++\projects\lab4sadman\studentinfo.cpp
+	<iostream>
+	"unsortedtype.h"
+	"unsortedtype.cpp"
+
+1625941327 c:\users\little finger\desktop\c++\projects\lab4sadman\unsortedtype.cpp
+	"UnsortedType.h"
+

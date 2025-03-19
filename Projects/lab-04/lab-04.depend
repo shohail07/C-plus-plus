@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1625934783 source:c:\users\little finger\downloads\main.cpp
+	<iostream>
+	"unsortedtype.cpp"
+	"StudentInfo.cpp"
+	"unsortedtype.h"
+	<cstdlib>
+
+1625934749 c:\users\little finger\downloads\unsortedtype.cpp
+	"unsortedtype.h"
+
+1625934764 c:\users\little finger\downloads\unsortedtype.h
+
+1625935471 c:\users\little finger\downloads\studentinfo.cpp
+	<string>
+	<iostream>
+	"StudentInfo.h"
+
+1625934794 c:\users\little finger\downloads\studentinfo.h
+
+1625934749 source:c:\users\little finger\downloads\unsortedtype.cpp
+	"unsortedtype.h"
+

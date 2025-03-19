@@ -1,0 +1,37 @@
+# depslib dependency file v1.0
+1625846993 source:e:\c++\lab04\lab04\main.cpp
+	<iostream>
+	"unsortedtype.cpp"
+	"StudentInfo.cpp"
+	"unsortedtype.h"
+	<cstdlib>
+
+1625843503 e:\c++\lab04\lab04\unsortedtype.cpp
+	"unsortedtype.h"
+
+1625846543 e:\c++\lab04\lab04\unsortedtype.h
+
+1625847561 e:\c++\lab04\lab04\studentinfo.cpp
+	<string>
+	"StudentInfo.h"
+
+1625847530 e:\c++\lab04\lab04\studentinfo.h
+
+1626033432 source:c:\users\little finger\desktop\c++\projects\lab04\main.cpp
+	<iostream>
+	"unsortedtype.cpp"
+	"StudentInfo.cpp"
+	"unsortedtype.h"
+	<cstdlib>
+
+1625796702 c:\users\little finger\desktop\c++\projects\lab04\unsortedtype.cpp
+	"unsortedtype.h"
+
+1625799742 c:\users\little finger\desktop\c++\projects\lab04\unsortedtype.h
+
+1625800760 c:\users\little finger\desktop\c++\projects\lab04\studentinfo.cpp
+	<string>
+	"StudentInfo.h"
+
+1625800730 c:\users\little finger\desktop\c++\projects\lab04\studentinfo.h
+

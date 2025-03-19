@@ -1,0 +1,161 @@
+//task 1
+
+
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int size;
+    cout << "Array size : ";
+    cin >> size;
+
+    int *DynArr;
+    DynArr = new int[size];
+    for (int i = 0; i < size; i++)
+    {
+
+        cout << "[" << i << "] : ";
+        cin >> DynArr[i];
+    }
+
+    cout <<endl;
+    for (int i = 0; i < size; i++)
+    {
+
+        cout << "[" << i << "] : " << DynArr[i];
+        cout <<endl;
+    }
+
+    delete[] DynArr;
+    cout << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+
+//task 2
+
+
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int row, col;
+    cout << "Row size: " ;
+    cin >> row;
+    cout << "Column size: " ;
+    cin >> col;
+
+
+    char **DynArr2 = new char*[row];
+    for (int i = 0; i < row; i++)
+    {
+        DynArr2[i] = new char[col];
+    }
+
+
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            cout << "["<<i<<"] "<<"["<<j<<"] : ";
+            cin >> DynArr2[i][j];
+        }
+
+    }
+    cout << endl;
+    cout << "Strings :";
+
+    cout << endl;
+
+    for (int i = 0; i < row; i++)
+    {
+        cout<<"\t";
+        for (int j = 0; j < col; j++)
+        {
+
+            cout << DynArr2[i][j] ;
+        }
+        cout << endl;
+
+    }
+
+    for (int i = 0; i < row; ++i)
+    {
+        delete[] DynArr2[i];
+    }
+    delete[] DynArr2;
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+//task 3
+
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int row;
+    cout<<"Row size : ";
+    cin>>row;
+    int **DynArr3=new int *[row];
+
+    int* col;
+    col = new int [row];
+
+    for(int i=0; i<row; i++)
+    {
+        cout<<"Number of columns in array "<<i+1<<": ";
+        cin>>col[i];
+        DynArr3[i]=new int[col[i]];
+
+        cout<<"Enter the elements :"<<endl;
+
+        for(int j=0; j<col[i]; j++)
+        {
+            cin>>DynArr3[i][j];
+        }
+    }
+    cout<<endl;
+
+    cout<<"Array elements :"<<endl;
+    for(int i=0; i<row; i++)
+    {
+        for(int j=0; j<col[i]; j++)
+        {
+            cout<<DynArr3[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    for (int i=0; i<row; ++i)
+    {
+        delete[] DynArr3[i];
+    }
+
+    delete []DynArr3;
+    delete []col;
+
+    return 0;
+}

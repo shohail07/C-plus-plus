@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1627898037 source:c:\users\little finger\desktop\c++\projects\assignment 1\main.cpp
+	"Student.cpp"
+	<bits/stdc++.h>
+
+1627898175 c:\users\little finger\desktop\c++\projects\assignment 1\student.cpp
+	"Student.h"
+	<iostream>
+
+1627898173 c:\users\little finger\desktop\c++\projects\assignment 1\student.h
+	<iostream>
+
+1627898175 source:c:\users\little finger\desktop\c++\projects\assignment 1\student.cpp
+	"Student.h"
+	<iostream>
+

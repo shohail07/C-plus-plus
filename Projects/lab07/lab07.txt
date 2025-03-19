@@ -1,0 +1,193 @@
+quetype.h
+
+#ifndef QUETYPE_H_INCLUDED
+#define QUETYPE_H_INCLUDED
+#include <iostream>
+const int max_items = 50;
+
+template<class T>
+class QueType
+{
+public:
+    QueType();
+    void MakeEmpty();
+    bool isEmpty();
+    bool isFull();
+    void Enqueue(T);
+    void Dequeue();
+    T Front();
+
+private:
+    int front;
+    int rear;
+    T info[max_items];
+};
+
+#endif // QUETYPE_H_INCLUDED
+
+
+
+
+quetype.cpp
+
+#include "quetype.cpp"
+#include <iostream>
+using namespace std;
+
+
+ QueType()
+    {
+        rear = front = 0;
+        capacity = max_items;
+    }
+    QueType(int size)
+    {
+        rear = front = 0;
+        capacity = size;
+    }
+    void MakeEmpty()
+    {
+        rear = front = 0;
+    }
+    bool isEmpty()
+    {
+        return rear == front;
+    }
+    bool isFull()
+    {
+        return rear == capacity;
+    }
+    void Enqueue(T elem)
+    {
+       if (!isFull()) info[rear++] = elem;
+        else std::cout << "Queue is already full\n";
+
+    }
+    void Dequeue()
+    {
+        if (!isEmpty()) front++;
+        else std::cout << "Queue is already empty\n";
+    }
+    T Front()
+    {
+       if (!isEmpty()) return info[front];
+        else std::cout << "No data to return\n";
+       return 0;
+    }
+    void print()
+    {
+        int counter = front;
+        while (counter < rear)
+        {
+            std::cout << info[counter++] << " ";
+        }
+        std::cout << "\n";
+    }
+
+    void PrintReverse()
+    {
+
+        if (isEmpty())
+        {
+            std::cout << "queue is empty!\n";
+            return;
+        }
+
+        int counter = rear - 1;
+        while (counter >= front)
+        {
+            std::cout << info[counter--] << " ";
+        }
+        std::cout << "\n";
+    }
+
+
+
+
+
+main.cpp
+
+#include "quetype.cpp"
+#include <iostream>
+using namespace std;
+void PrintBinary(int);
+
+int main()
+{
+
+    QueType<int> q(5);
+
+    if (q.isEmpty()) cout << "queue is empty\n";
+    else cout << "queue is not empty\n";
+
+
+    int front = q.Front();
+
+    q.Enqueue(5);
+    q.Enqueue(7);
+    q.Enqueue(4);
+    q.Enqueue(2);
+
+    if (q.isEmpty()) cout << "queue is empty\n";
+    else cout << "queue is not empty\n";
+
+    if (q.isFull()) cout << "queue is full\n";
+    else cout << "queue is not full\n";
+
+    q.Enqueue(6);
+    q.print();
+
+    if (q.isFull()) cout << "queue is full\n";
+    else cout << "queue is not full\n";
+
+    q.Enqueue(8);
+    q.Dequeue();
+    q.Dequeue();
+
+    q.print();
+
+    q.Dequeue();
+    q.Dequeue();
+    q.Dequeue();
+
+    if (q.isEmpty()) cout << "queue is empty\n";
+    else cout << "queue is not empty\n";
+
+    q.Dequeue();
+    q.MakeEmpty();
+    q.Enqueue(1);
+    q.Enqueue(2);
+    q.Enqueue(3);
+    q.Enqueue(4);
+    q.Enqueue(5);
+    q.PrintReverse();
+    q.print();
+
+    cout << "enter an integer: ";
+    int n;
+    cin >> n;
+    PrintBinary(n);
+
+    return 0;
+}
+void PrintBinary(int n)
+{
+
+    QueType<string> q;
+
+
+    q.Enqueue("1");
+
+    int copy_n = n;
+    while (copy_n--)
+    {
+
+        string curr = q.Front();
+        q.Dequeue();
+        cout << curr << "\n";
+
+        string prev = curr;
+        q.Enqueue(curr.append("0"));
+        q.Enqueue(prev.append("1"));
+    }
+}
